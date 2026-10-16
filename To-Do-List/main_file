@@ -1,0 +1,23 @@
+tasks = []      #creates list for tasks
+
+def show_menu():        #function to show menu options
+    print("To-Do List Menu:")
+    print("1. Add Task")
+    print("2. View Tasks")
+    print("3. Remove Task")
+    print("4. Exit")
+    
+def add_task():        #creates function to add task
+    task = input("Enter the task: ")
+    tasks.append({"task": task, "done": False})  #adds task to list with done status as false
+    print(f"Task '{task}' added successfully!")  #prints confirmation message
+    
+def view_task():
+    if not tasks: #checks if tasks is empty
+        print("No tasks found.")
+        return
+    print("Your tasks:")
+    for index, task in enumerate(tasks, start=1):   #goes through task list and prints with index
+        status = "Completed" if task["done"] else "Not complete"
+        print(f"{index}. {task['task']} [{status}]") #prints index, task and status
+        
