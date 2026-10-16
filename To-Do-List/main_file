@@ -1,11 +1,14 @@
+#To-Do List Program
+
 tasks = []      #creates list for tasks
 
 def show_menu():        #function to show menu options
     print("To-Do List Menu:")
     print("1. Add Task")
     print("2. View Tasks")
-    print("3. Remove Task")
-    print("4. Exit")
+    print("3. Mark Task as Complete")
+    print("4. Remove Task")
+    print("5. Exit")
     
 def add_task():        #creates function to add task
     task = input("Enter the task: ")
@@ -21,3 +24,48 @@ def view_task():
         status = "Completed" if task["done"] else "Not complete"
         print(f"{index}. {task['task']} [{status}]") #prints index, task and status
         
+def mark_done(): #marks whether a task is complete
+    view_task()  #calls view_task function to show tasks
+    if not tasks: #checks if tasks is empty
+        return
+    try:
+        index = int(input("Enter the task number to mark as complete: ")) - 1  #asks user for task number and converts to index by removing 1
+        if 0<= index < len(tasks): #ensures the number is valid
+            tasks[index]["done"] = True  #marks task as done
+            print(f"Task '{tasks[index]['task']}' marked as complete!")  #prints confirmation message
+        else:
+            print("Invalid task number.")  #prints error message for invalid number
+    except ValueError:  #catches error if input is not a number
+        print("Please enter a valid number.")  #prints error message for invalid input
+
+def remove_task():  #function to remove task
+    view_task()  #calls view_task function to show tasks
+    if not tasks:  #checks if tasks is empty
+        return
+    try:
+        index = int(input("Enter the task number to remove: ")) - 1  #asks user for task number and converts to index by removing 1
+        if 0 <= index < len(tasks):  #ensures the number is valid
+            removed_task = tasks.pop(index)  #removes task from list
+            print(f"Task '{removed_task['task']}' removed successfully!")  #prints confirmation message
+        else:
+            print("Invalid task number.")  #prints error message for invalid number
+    except ValueError:  #catches error if input is not a number
+        print("Please enter a valid number.")  #prints error message for invalid input
+        
+while True:  #infinite loop to keep the program running until user chooses to exit
+    show_menu() #calls show_menu function to display menu options
+    choice = input("Choose an option (1-5): ")  #asks user for menu option
+    
+    if choice == "1":  #if user chooses option 1
+        add_task()  #calls add_task function to add a task
+    elif choice == "2":  #if user chooses option 2
+        view_task()  #calls view_task function to view tasks
+    elif choice == "3":  #if user chooses option 3
+        mark_done()  #calls mark_done function to mark a task as complete
+    elif choice == "4":  #if user chooses option 4
+        remove_task()  #calls remove_task function to remove a task
+    elif choice == "5":  #if user chooses option 5
+        print("Goodbye!")  #prints goodbye message
+        break  #exits the loop and ends the program
+    else:  #if user chooses an invalid option
+        print("Invalid choice. Please try again.")  #prints error message for invalid choice
